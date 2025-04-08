@@ -1,26 +1,40 @@
 <div class="container">
     <h2>Currency Converter</h2>
 
-    <form (ngSubmit)="convertCurrency()">
-        <input type="number" placeholder="Enter amount" [(ngModel)]="amount" name="amount" required min="0.01" (input)="onInputChange()" />
+    <form (ngSubmit)="convertCurrency()" class="form">
+        <div class="input-group">
+            <label for="amount">Enter Amount</label>
+            <input id="amount" type="number" [(ngModel)]="amount" name="amount" required min="0.01"
+                (input)="onInputChange()" />
+        </div>
 
-        <select [(ngModel)]="fromCurrency" name="fromCurrency" (change)="onCurrencyChange()" >
-            <option *ngFor="let currency of currencies" [value]="currency">
-                {{ currency }}
-            </option>
-        </select>
+        <div class="dropdowns">
+            <div class="dropdown-group">
+                <label for="fromCurrency">From Currency</label>
+                <select id="fromCurrency" [(ngModel)]="fromCurrency" name="fromCurrency" (change)="onCurrencyChange()">
+                    <option *ngFor="let currency of currencies" [value]="currency">
+                        {{ currency }}
+                    </option>
+                </select>
+            </div>
 
-        <select [(ngModel)]="toCurrency" name="toCurrency" (change)="onCurrencyChange()" >
-            <option *ngFor="let currency of currencies" [value]="currency">
-                {{ currency }}
-            </option>
-        </select>
+            <div class="dropdown-group">
+                <label for="toCurrency">To Currency</label>
+                <select id="toCurrency" [(ngModel)]="toCurrency" name="toCurrency" (change)="onCurrencyChange()">
+                    <option *ngFor="let currency of currencies" [value]="currency">
+                        {{ currency }}
+                    </option>
+                </select>
+            </div>
+        </div>
 
         <button type="submit" [disabled]="!isValid">Convert</button>
     </form>
 
-    <div *ngIf="convertedAmount !== null">
-        <h3>{{ amount }} {{ fromCurrency }} ➡️ {{ convertedAmount }} {{ toCurrency }}</h3>
-        <p style="font-style: italic;">Exchange Rate: 1 {{ fromCurrency }} = {{ exchangeRate }} {{ toCurrency }}</p>
+    <div class="result" *ngIf="convertedAmount !== null">
+        <h3>
+            {{ amount }} {{ fromCurrency }} ➡️ {{ convertedAmount }} {{ toCurrency }}
+        </h3>
+        <p><em>Exchange Rate: 1 {{ fromCurrency }} = {{ exchangeRate }} {{ toCurrency }}</em></p>
     </div>
 </div>
